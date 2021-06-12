@@ -24,5 +24,20 @@ class ProdutoClient (val produtoService: ProdutoService = AppRetrofit().produtoS
         })
 
     }
-    
+
+    fun cadastrarProdutos(produto: Produto,onSucess: () -> Unit,
+                          onFail: (erro: String?) -> Unit) {
+        produtoService.cadastrarProduto(produto).enqueue(object : Callback<Unit> {
+            override fun onFailure(call: Call<Unit>, t: Throwable) {
+                onFail(t.message)
+            }
+
+            override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+                if (response.isSuccessful)
+                    response.body()?.let{ onSucess() }
+                else
+                    onFail("Erro nao identificado!")
+            }
+        })
+    }
 }

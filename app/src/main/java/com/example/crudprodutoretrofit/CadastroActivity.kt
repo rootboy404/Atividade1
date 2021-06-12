@@ -6,9 +6,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
+import android.widget.Toast
 import com.example.crudprodutoretrofit.model.Produto
+import com.example.crudprodutoretrofit.retrofit.ProdutoClient
+
 
 class CadastroActivity : AppCompatActivity() {
+    val produtoClient: ProdutoClient by lazy{
+        ProdutoClient()
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cadastro)
@@ -24,8 +32,15 @@ class CadastroActivity : AppCompatActivity() {
         val produto = Produto(id, nome, preco)
 
         setResult(Activity.RESULT_OK)
+        produtoClient.cadastrarProdutos(produto,
+            onSucess = {
+            finish()
+        }, onFail = {
+                erro ->
+            Toast.makeText(this, erro, Toast.LENGTH_SHORT).show()
+        }
+        )
 
-        finish()
     }
 
     fun cancelarCadastro(view: View?) {

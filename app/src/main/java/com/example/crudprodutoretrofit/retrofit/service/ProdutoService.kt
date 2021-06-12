@@ -12,5 +12,5 @@ interface ProdutoService {
     fun listarProdutos():Call<List<Produto>>
 
     @POST("/produtos")
-    fun cadastrarProduto(@Body produto: Produto)
+    fun cadastrarProduto(@Body produto: Produto):Call<Unit>
 }

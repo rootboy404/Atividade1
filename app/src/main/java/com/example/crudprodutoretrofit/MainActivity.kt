@@ -38,7 +38,7 @@ class MainActivity() : AppCompatActivity() {
 
     private fun listarProdutos(produtos: List<Produto>) {
         val viewManager = LinearLayoutManager(this)
-        var viewAdapter = ProdutoAdapter(produtos!!);
+        var viewAdapter = ProdutoAdapter(produtos);
 
         var recyclerView = findViewById<RecyclerView>(R.id.recyclerView).apply {
 
